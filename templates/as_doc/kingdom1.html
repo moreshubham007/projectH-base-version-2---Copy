@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>doctor - Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../admin/assets/img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="../assets/css/feathericon.min.css">
+
+    <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/custom.css">
+
+
+    <style>
+        .header {
+            background: none;
+            border-bottom: none;
+            z-index: 1001;
+            height: 60px;
+            position: static;
+            top: 0;
+            right: 0;
+            /* left: 18%; */
+        }
+
+        .sidebar {
+            background-color: #fff;
+            margin-top: 0;
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -ms-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+            width: 240px;
+            z-index: 1001;
+            position: fixed;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+        }
+
+        .sidebar .sidebar-menu>ul>li>a {
+            color: #000000;
+        }
+
+        .sidebar-menu ul li.active a {
+            background-color: #1c3264;
+            color: #fff;
+        }
+
+        .sidebar-menu>ul>li>a:hover {
+            background-color: #1c3264 !important;
+            color: #ffffff;
+        }
+
+        .user-header {
+            background-color: #fff !important;
+            display: flex;
+            padding: 10px 15px;
+            color: black;
+        }
+
+        .page-wrapper {
+            margin-left: 240px;
+            padding-top: 0px;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -ms-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .btns {
+            background-color: #1c3264 !important;
+            border: 1px solid #1c3264;
+        }
+
+        .dash-widget-icon {
+            display: inline-flex;
+            font-size: 22px;
+            height: 50px;
+            line-height: 48px;
+            text-align: center;
+            width: 50px;
+            border: none;
+            border-radius: 0;
+            padding: 28px;
+        }
+
+        .sidebar-menu ul li a {
+            color: #000;
+            display: block;
+            font-size: 16px;
+            height: auto;
+            padding: 0 20px;
+        }
+
+        .checkbox.disabled label {
+            text-decoration: line-through;
+            color: grey;
+        }
+
+        .checkk[type="checkbox"]
+        {
+            border: 1px solid #000;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <div class="header">
+
+            <div class="header-left"></div>
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fa fa-bars"></i>
+            </a>
+            <!-- /Mobile Menu Toggle -->
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+
+            <div class="sidebar-inner ">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <!-- Logo -->
+                            <div class="m-auto">
+                                <a href="index.html" class="logo">
+                                    <img src="../assets/img/logo.jpeg" alt="Logo">
+                                </a>
+                            </div>
+                            <!-- /Logo -->
+
+                        </li>
+                        <hr>
+                        <li class="menu-title">
+                            <div class="user-header">
+                                <div class="avatar avatar-sm">
+                                    <i class="fe fe-user" style="font-size: 35px"></i>
+                                    <!-- <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle"> -->
+                                </div>
+                                <div class="user-text">
+                                    <h6>Name</h6>
+                                    <p class="text-muted mb-0">name@gmail.com</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="active">
+                            <a href="doctor-dashboard.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="profile-setting.html"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
+                        </li>
+                        <li>
+                            <a href="my-patients.html"><i class="fe fe-user-plus"></i> <span>My Patients</span></a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-document"></i> <span> Kingdoms</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="kingdom1.html">Animal</a></li>
+                                <li><a href="kingdom2.html">Plant</a></li>
+                                <li><a href="kingdom3.html">Minerals</a></li>
+                                <li><a href="chart.html">Chart</a></li>
+                                <li><a href="DonutChart.html">Doughnut Chart</a></li>
+								<li><a href="chart1.html">Histogram</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="appointment-list.html"><i class="fe fe-layout"></i> <span>My Case</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fe fe-logout"></i> <span>Logout</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Sidebar -->
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+
+            <div class="content container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- Recent Orders -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Kingdoms</h4>
+                            </div>
+                            <div class="card-body mt-3">
+                                <form action="">
+                                    <div class="row ">
+                                        <label class="text-center col-md-12">Checkbox</label>
+                                        <div class="row ">
+                                            <div class="col-md-4 m-auto">
+                                                <div class="checkbox border border-primary p-2 mb-2">
+                                                    <label>Option 1</label>
+                                                    <input type="checkbox" name="checkbox" class="checkk float-end" onclick="toggleCheckbox(this)">
+                                                </div>
+                                                <div class="checkbox  border border-primary p-2 mb-2">
+                                                    <label>Option 2</label>
+                                                    <input type="checkbox" name="checkbox" class="float-end" onclick="toggleCheckbox(this)">
+                                                </div>
+                                                <div class="checkbox  border border-primary p-2">
+                                                    <label> Option 3</label>
+                                                    <input type="checkbox" name="checkbox" class="float-end" onclick="toggleCheckbox(this)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /Recent Orders -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Wrapper -->
+
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="../assets/js/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="../assets/plugins/raphael/raphael.min.js"></script>
+    <script src="../assets/plugins/morris/morris.min.js"></script>
+    <script src="../assets/js/chart.morris.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/script.js"></script>
+
+    <script>
+       /* function toggleCheckbox(checkbox) {
+            if (checkbox.checked) {
+                checkbox.parentElement.classList.add('disabled');
+                checkbox.disabled = true;
+            } else {
+                checkbox.parentElement.classList.remove('disabled');
+                checkbox.disabled = false;
+            }
+        }*/
+
+        function toggleCheckbox(checkbox) {
+            if (!checkbox.disabled) {
+                checkbox.parentElement.classList.toggle('disabled');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

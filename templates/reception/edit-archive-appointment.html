@@ -1,0 +1,80 @@
+{% extends 'reception_base.html' %}
+{% load static %}
+
+{% block content  %}
+<div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-4 ">
+                        <h4 class="page-title">Edit Archive Appointment</h4>
+                         
+                    </div>
+                    <div class="col-sm-8  text-right m-b-20">
+                        <a href="{% url 'reception:show_archive_appointments' %}" class="btn btn-primary btn-rounded float-right">Back</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <form method="post" action="{% url 'reception:edit_archive_appointment' appointment.appointment_id %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Appointment ID <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="appointment_id" value="APT-{{appointment.appointment_id}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Patient Name</label>
+                                        <select class="selectpicker" name="patient_name" data-live-search="true" autofocus="1" required>
+                                            <option value="{{appointment.patient.user_id}}" data-tokens="{{appointment.patient.firstname}} {{appointment.patient.lastname}} {{appointment.patient.dob}} {{appointment.patient.primary_contact}}" selected>{{appointment.patient.firstname}} {{appointment.patient.lastname}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Doctor Name</label>
+                                        <br>
+                                        <select class="selectpicker" name="doctor_name" data-live-search="true" required>
+                                                <option value="{{appointment.doctor.user_id}}" data-tokens="{{appointment.doctor.firstname}} {{appointment.doctor.lastname}} {{appointment.doctor.dob}} {{appointment.doctor.primary_contact}}">DR. {{appointment.doctor.firstname}} {{appointment.doctor.lastname}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control datetimepicker" name="date" value="{{date}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Time</label>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control" id="datetimepicker3" name="time" value="{{time}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div class="form-group">
+                                <label>Message</label>
+                                <textarea cols="30" rows="4" class="form-control" name="message">{{appointment.message}}</textarea>
+                            </div>
+                             
+                            <div class="m-t-20 text-center">
+                                <button name="add-appointment" class="btn btn-primary submit-btn">Save Appointment</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+		</div>
+{% endblock %}

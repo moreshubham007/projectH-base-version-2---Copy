@@ -1,0 +1,44 @@
+superadmin
+----------------------------------
+email : latish@test.com
+password : 123
+----------------------------------
+Admin Doctor
+-------------------------------
+email : admin@test.com
+password : 123
+-------------------------------
+Assistant Doctor
+-------------------------------
+email : asdoc1@test.com
+password : 123
+
+email : asdoc2@test.com
+password : 123
+
+email : asdoc3@test.com
+password : 123
+
+email : asdoc4@test.com
+password : 123
+
+email : asdoc5@test.com
+password : 123
+-------------------------------
+Patients 
+-------------------------------
+email : user1@test.com
+password : 123
+
+email : user2@test.com
+password : 123
+
+email : user3@test.com
+password : 123
+
+email : user4@test.com
+password : 123
+-------------------------------
+Reception
+email  : reception@test.com
+password : 123

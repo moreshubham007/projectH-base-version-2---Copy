@@ -1,0 +1,36 @@
+{% load static %}
+<div class="sidebar-overlay" data-reff=""></div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+    <!-- <script src="assets/js/jquery-3.2.1.min.js"></script> -->
+	<script src="{% static 'assets/js/receptionpopper.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptionbootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptionjquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptiondataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptionjquery.slimscroll.js' %}"></script>
+    <script src="{% static 'assets/js/receptionChart.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/receptionchart.js' %}"></script>
+    <script src="{% static 'assets/js/receptionapp.js' %}"></script>
+    <script src="{% static 'assets/js/receptionselect2.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptionmoment.min.js' %}"></script>
+    <script src="{% static 'assets/js/receptionbootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% block addonJS %}
+    {% endblock %}
+    
+
+<script>
+            $(function () {
+                $('#datetimepicker3').datetimepicker({
+                    format: 'LT'
+
+                });
+                $('#datetimepicker4').datetimepicker({
+                    format: 'LT'
+                });
+            });
+     </script>
+
+</body>
+</html>

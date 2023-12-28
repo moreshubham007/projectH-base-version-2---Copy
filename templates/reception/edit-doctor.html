@@ -1,0 +1,167 @@
+{% extends 'reception_base.html' %}
+{% load static %}
+
+{% block content  %}
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-4 ">
+                        <h4 class="page-title">Edit Doctor</h4>
+                         
+                    </div>
+                    <div class="col-sm-8  text-right m-b-20">
+                        <a href="{% url 'reception:show_doctors' %}" class="btn btn-primary btn-rounded float-right">Back</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        {% if success %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{success}}, <a href="{% url 'reception:show_doctor' %}" class="alert-link">Click here to show doctors.</a>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                          {% endif %}
+                        {% if error %}
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                              {{error}}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                        {% endif %}
+                        <form method="post" action="{% url 'reception:edit_doctor' doctor.user_id %}" >
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>First Name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="first_name"
+                                        value="{{doctor.firstname}}" required> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input class="form-control" type="text" name="last_name"
+                                        value="{{doctor.lastname}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Email <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="email" name="emailid"
+                                        value="{{doctor.email}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Password <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="password" name="password"
+                                        value="{{doctor.password}}" readonly>
+                                    </div>
+                                </div>
+                                
+								<div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control datetimepicker" name="dob" 
+                                            value="{{dob}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Employee ID </label>
+                                        <input class="form-control" type="text" name="employee_id" value="{{doctor.user_id}}"  title="Employee id generated automatically"    readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Phone <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="phone"
+                                        value="{{doctor.primary_contact}}" required>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Alternate Phone </label>
+                                        {% if doctor.alternate_contact %}
+                                        <input class="form-control" type="text" name="alphone"
+                                        value="{{doctor.alternate_contact}}">
+                                        {% else %}
+                                        <input class="form-control" type="text" name="alphone"
+                                        value="">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-6">
+									<div class="form-group gender-select">
+										<label class="gen-label">Gender: </label>
+                                        {% if doctor.gender == 'M' %}
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" name="gender" class="form-check-input" value="M" checked>Male
+											</label>
+										</div>
+                                        {% else %}
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" name="gender" class="form-check-input" value="F" checked>Female
+											</label>
+										</div>
+                                        {% endif %}
+									</div>
+                                </div>
+								
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="display-block">Status</label>
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'A' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_available" value="A" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_available" value="A">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_available">
+									Available
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'W' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_away" value="W" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_away" value="W">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_away">
+									Away
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'O' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_occupied" value="O" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_occupied" value="O">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_occupied">
+									Occupied
+									</label>
+								</div>
+                            </div>
+                            <div class="m-t-20 text-center">
+
+                                <button name="save-doctor" class="btn btn-primary submit-btn">Save</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+		</div>
+    
+{% endblock %}

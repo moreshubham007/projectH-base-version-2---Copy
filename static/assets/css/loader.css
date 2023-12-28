@@ -1,0 +1,67 @@
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+#overlay {
+  position: fixed;
+  z-index: 99999;
+  top: -100%; /* Shifted to the upper direction */
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 1); /* Reversed color to white */
+  transition: 1s 0.4s;
+}
+
+#progress {
+  height: 5px; /* Adjust the height for a thicker line */
+  background: #000; /* Reversed color to black */
+  position: relative; /* Changed to relative */
+  width: 0; /* will be increased by JS */
+  top: 50%;
+  animation: loading 2s linear infinite; /* Add loading animation */
+  overflow: hidden; /* Hide overflow to clip neon dot */
+}
+
+#progress::before {
+  content: "";
+  width: 10px; /* Adjust the size of the neon dot */
+  height: 10px; /* Adjust the size of the neon dot */
+  background: #00ff00; /* Neon green color */
+  border-radius: 50%; /* Make it a circle */
+  position: absolute;
+  top: 0;
+  left: 100%; /* Position the neon dot at the end of the loading progress */
+  transform: translateX(-50%);
+  animation: neon 2s linear infinite; /* Neon animation */
+}
+
+@keyframes neon {
+  0%, 100% {
+    transform: translateX(-50%); /* Maintain position at the start and end of loading */
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00; /* Neon glow effect */
+  }
+  50% {
+    transform: translateX(-50%); /* Maintain position at the middle of loading */
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; /* Neon glow effect */
+  }
+}
+
+#progstat {
+  font-size: 0.7em;
+  letter-spacing: 3px;
+  position: absolute;
+  top: 50%;
+  margin-top: -40px;
+  width: 100%;
+  text-align: center;
+  color: #000; /* Reversed color to black */
+}

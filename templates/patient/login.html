@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>Customer - Login</title>
+		
+		<!-- Favicon -->
+        <!-- <link rel="shortcut icon" type="image/x-icon" href="../../static/assets/img/logo.jpeg"> -->
+
+		<!-- Bootstrap CSS -->
+        <!-- <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">    -->
+		<link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}"> 
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="{% static '/assets/css/font-awesome.min.css' %}">
+		
+		<!-- Main CSS -->
+
+        <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+		<style>
+			.toggle-password{
+				font-size: 16px;
+				position: absolute;
+				top: 51%;
+				right: 23%;
+				transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				color: #797979;
+				cursor: pointer;
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+			}
+		</style>
+        
+    </head>
+    <body>
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper login-body">
+            <div class="login-wrapper">
+            	<div class="container">
+                	<div class="loginbox">
+                    	<div class="login-left">
+							<img class="img-fluid" src="{% static 'assets/img/logo.jpeg' %}" alt="Logo">
+                        </div>
+                        <div class="login-right">
+							<div class="login-right-wrap">
+								<h1>Login</h1>
+								<p class="account-subtitle">Access to our dashboard</p>
+								<p>
+									{% if message %}
+										<p>{{message}}</p>
+									{% endif %}
+								</p>
+								<!-- Form -->
+								<form action="{% url 'patient:plogin' %}" method="post">
+									{% csrf_token %}
+									<div class="form-group">
+										<input class="form-control" type="text" placeholder="Email" 
+										name="email"
+										required>
+									</div>
+									<div class="form-group">
+										<div class="pass-group">
+											<input class="form-control pass-input" type="password" placeholder="Password" 
+											name="password"
+											required>
+											<!-- <span class="feather-eye toggle-password"></span> -->
+											<i class="fa fa-eye feather-eye toggle-password " aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="form-group">
+										<button class="btn btn-primary w-100 " type="submit">Login</button>
+									</div>
+								</form>
+								<!-- /Form -->
+								
+								<div class="text-center forgotpass"><a href="{% url 'patient:forgotpswd' %}">Forgot Password?</a></div>
+																
+								<div class="text-center dont-have">Don’t have an account? <a href="{% url 'patient:pregister' %}">Register</a></div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+        <script src="{% static 'assets/js/jquery-3.6.4.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+        <script src="{% static  'assets/js/bootstrap.bundle.min.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'assets/js/script.js' %}"></script>
+		<script>
+				if ($('.toggle-password').length > 0) {
+				$(document).on('click', '.toggle-password', function () {
+					$(this).toggleClass("feather-eye-off");
+					var input = $(".pass-input");
+					if (input.attr("type") == "password") {
+						input.attr("type", "text");
+					} else {
+						input.attr("type", "password");
+					}
+				});
+			}
+		</script>
+		
+    </body>
+</html>

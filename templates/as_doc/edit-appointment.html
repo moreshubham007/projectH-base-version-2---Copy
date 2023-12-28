@@ -1,0 +1,241 @@
+{% extends 'doctor_base_temp.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block customCSS %}
+<style>
+				.header {
+				background: none;
+				border-bottom: none;
+				z-index: 1001;
+				height: 60px;
+				position: static;
+				top: 0;
+				right: 0;
+				/* left: 18%; */
+			}
+
+			.sidebar {
+				background-color: #fff;
+				margin-top: 0;
+				-webkit-transition: all 0.2s ease-in-out 0s;
+				-ms-transition: all 0.2s ease-in-out 0s;
+				transition: all 0.2s ease-in-out 0s;
+				width: 240px;
+				z-index: 1001;
+				position: fixed;
+				top: 0px;
+				bottom: 0;
+				left: 0;
+			}
+
+			.sidebar .sidebar-menu > ul > li > a {
+				color: #000000;
+			}
+
+			.sidebar-menu ul li.active a {
+				background-color: #1c3264;
+				color: #fff;
+			}
+
+			.sidebar-menu > ul > li > a:hover {
+				background-color: #1c3264 !important;
+				color: #ffffff;
+			}
+
+			.user-header {
+				background-color: #fff !important;
+				display: flex;
+				padding: 10px 15px;
+				color: black;
+			}
+
+			.page-wrapper {
+				margin-left: 240px;
+				padding-top: 0px;
+				position: relative;
+				-webkit-transition: all 0.4s ease;
+				-ms-transition: all 0.4s ease;
+				transition: all 0.4s ease;
+			}
+
+			.btns{
+				background-color: #1c3264 !important;
+				border: 1px solid #1c3264;
+			}
+
+			.dash-widget-icon {
+				display: inline-flex;
+				font-size: 22px;
+				height: 50px;
+				line-height: 48px;
+				text-align: center;
+				width: 50px;
+				border: none;
+				border-radius: 0;
+				padding: 28px;
+			}
+
+			.sidebar-menu ul li a {
+                color: #000;
+                display: block;
+                font-size: 16px;
+                height: auto;
+                padding: 0 20px;
+            }
+            .sidebar-menu li a:hover {
+            color: #3a3a3a;
+        }
+    
+    .btn-primary {
+        border-color: transparent;
+        background-color: #3a3a3a;
+    }
+
+    .btn-primary:hover {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .btn-primary:active:not(:disabled):not(.disabled)
+    {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .page-item.active .page-link {
+        background-color: #3a3a3a;
+        border-color: #3a3a3a;
+    }
+</style>
+{% endblock %}
+
+{% block doctor_name %}
+{{doctor.firstname}} {{doctor.lastname}}
+{% endblock %}
+{% block doctor_email %}
+{{doctor.email}}
+<br>
+{{doctor.user_id}}
+{% endblock %}
+
+{% block active %}
+<li class="active"> 
+	<a href="{% url 'as_doc:index' %}"><i class="fe fe-home"></i> <span>My Appointments</span></a>
+</li>
+<li> 
+	<a href="{% url 'as_doc:archive' %}"><i class="fe fe-folder"></i> <span>Archive Appointments</span></a>
+</li>
+<li> 
+	<a href="{% url 'as_doc:status' %}"><i class="fe fe-flag"></i> <span>My Status</span></a>
+</li>
+{% endblock %}
+
+{% block content  %}
+<div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-8  text-right m-b-20">
+                        <h4 class="page-title">Edit Appointment</h4>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <a href="{% url 'as_doc:index' %}" class="btn btn-primary btn-rounded float-right">Back</a>
+                         
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <form method="post" action="{% url 'as_doc:edit_appointment' appointment.appointment_id %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Appointment ID <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="appointment_id" value="APT-{{appointment.appointment_id}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Patient Name</label>
+                                        <input class="form-control" type="text" name="patient_name" value="{{appointment.patient.firstname}} {{appointment.patient.lastname}}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Doctor Name</label>
+                                        <input class="form-control" type="text" name="doctor_name" value="{{appointment.doctor.firstname}} {{appointment.doctor.lastname}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control datetimepicker" name="date" value="{{date}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Time</label>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control" id="datetimepicker3" name="time" value="{{time}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div class="form-group">
+                                <label>Message</label>
+                                <textarea cols="40" rows="4" class="form-control" name="message" style="height: 200px;">{{appointment.message}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="display-block">Appointment Status</label>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    {% if appointment.status == 'A' %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_active" value="A" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_active" value="A">
+                                    {% endif %}
+                                    <label class="form-check-label" for="product_active">
+                                    Active
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    {% if appointment.status == 'C' %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_inactive" value="C" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_inactive" value="C">
+                                    {% endif %}
+                                    <label class="form-check-label" for="product_inactive">
+                                    Confirmed
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    {% if appointment.status == 'D' %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_done" value="D" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="product_done" value="D">
+                                    {% endif %}
+                                    <label class="form-check-label" for="product_done">
+                                    Done
+                                    </label>
+                                </div>
+                            </div>
+                             
+                            <div class="m-t-20 text-center">
+                                <button name="add-appointment" class="btn btn-primary submit-btn">Save Appointment</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+		</div>
+{% endblock %}

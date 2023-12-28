@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>My Appointments</title>
+
+        
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static '/assets/img/favicon.png' %}">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="{% static '/assets/css/font-awesome.min.css' %}">
+		
+		<!-- Feathericon CSS -->
+        <link rel="stylesheet" href="{% static '/assets/css/feathericon.min.css' %}">
+		
+		<link rel="stylesheet" href="{% static '/assets/plugins/morris/morris.css' %}">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="{% static '/assets/css/custom.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/loader.css' %}">
+        <script src="{% static 'assets/js/loader.js' %}"></script>
+
+		{% block customCSS %}
+		{% endblock %}
+        
+    </head>
+	<div id="overlay">
+		<div id="progstat"></div>
+		<div id="progress"></div>
+	</div>
+	<div>
+	<!-- <div class="flex-center flex-column mt-5 mb-5">
+	  <h1 class="animated fadeIn mb-2">This is a simple page loader</h1>
+	   <h5 class="animated fadeIn mb-1">Using no extra plugins, we use the power of javascript & basic css to create a seamless page loader.</h5>
+	
+	  <p class="animated fadeIn text-muted">Whitney S Rogers creation - GR FREEDOM DEV</p>
+	   -->
+	
+	  <!-- <div id="container" class="mt-5 text-center">
+		<h4 class="mb-5">Let's load some heavy images to test page loader!</h4>
+		<div class="container">
+		  <div class="row mb-5">
+			<div class="col"><img src="http://placehold.it/3000x3000/cf5" class="img-fluid"></div>
+			<div class="col"><img src="http://placehold.it/3000x3000/cf1" class="img-fluid"></div>
+		  </div> -->
+		  <div class="row"> 
+			<!-- <div class="col"><img src="http://placehold.it/3000x3000/cf2" class="img-fluid"></div> -->
+			<div class="col"><img src="http://placehold.it/3000x3000/cf3" class="img-fluid"></div>
+		  </div>
+		</div> 
+	  </div> 
+	</div>
+	</div>
+	<!-- /Start your project here-->
+	<!-- loader code end -->
+    <body>
+	
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+			<div class="header">
+				
+				<div class="header-left"></div>
+				<a href="javascript:void(0);" id="toggle_btn">
+					<i class="fe fe-text-align-left"></i>
+				</a>
+				
+				<!-- Mobile Menu Toggle -->
+				<a class="mobile_btn" id="mobile_btn">
+					<i class="fa fa-bars"></i>
+				</a>
+				<!-- /Mobile Menu Toggle -->				
+			</div>
+			<!-- /Header -->
+		
+			
+			<!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+					
+                <div class="sidebar-inner ">
+					<div id="sidebar-menu" class="sidebar-menu">
+						<ul>
+							<li class="menu-title">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<!-- <i class="fe fe-user" style="font-size: 35px"></i> -->
+										<i class="fa fa-user-md" style="font-size: 35px"></i>
+										<!-- <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle"> -->
+									</div>
+									<div class="user-text">
+										<h6>
+										{% block doctor_name %}
+										Name
+										{% endblock %}
+										</h6>
+
+										<p class="text-muted mb-0">
+											{% block doctor_email %}
+											name@gmail.com
+											{% endblock %}
+										</p>
+									</div>
+								</div>
+							</li>
+							{% block active %}
+							<li class="active"> 
+								<a href="{% url 'as_doc:index' %}"><i class="fe fe-home"></i> <span>My Appointments</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'as_doc:archive' %}"><i class="fe fe-box-archive"></i> <span>Archive Appointments</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'as_doc:status' %}"><i class="fe fe-flag"></i> <span>My Status</span></a>
+							</li>
+							{% endblock %}
+							<li>
+								<a href="{% url 'as_doc:logout' %}"><i class="fe fe-logout"></i> <span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+                </div>
+            </div>
+			<!-- /Sidebar -->
+
+			{% block content %}
+			{% endblock %}
+					
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+        <script src="{% static '/assets/js/jquery-3.6.4.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+        <script src="{% static '/assets/js/bootstrap.bundle.min.js' %}"></script>
+		
+		<!-- Slimscroll JS -->
+        <script src="{% static '/assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+		
+		<script src="{% static '/assets/plugins/raphael/raphael.min.js' %}"></script>    
+		<script src="{% static '/assets/plugins/morris/morris.min.js' %}"></script>  
+		<script src="{% static '/assets/js/chart.morris.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script  src="{% static '/assets/js/script.js' %}"></script>
+		
+    </body>
+</html>

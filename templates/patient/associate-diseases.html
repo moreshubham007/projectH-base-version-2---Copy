@@ -1,0 +1,253 @@
+{% extends 'customer_base.html' %}   {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Customer - Dashboard</title>
+
+
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+
+            <div class="content container-fluid">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- Recent Orders -->
+                        <div class="card card-table">
+                            <!-- <div class="card-header">
+                                <h4 class="card-title">Appointment List</h4>
+                            </div> -->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-center table-center mb-0" id="originalTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Disease Name</th>
+                                                <th>Month</th>
+                                                <th>Year</th>
+                                                <th>Duration</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div id="accordion">
+                                                        <div class="card card1">
+                                                            <div class="card-header card-header1" id="headingOne">
+                                                                <h5 class="mb-0">
+                                                                    <button class="btn btn-link" data-toggle="collapse"
+                                                                        data-target="#collapseOne" aria-expanded="true"
+                                                                        aria-controls="collapseOne">
+                                                                        pqr
+                                                                    </button>
+                                                                </h5>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td> October </td>
+                                                <td>2023</td>
+                                                <td> 11month </td>
+                                                <td>idontknow</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td> Remark </td>
+                                                <td colspan="5">
+                                                    <div class="card">
+                                                        <div id="collapseOne" class="collapse"
+                                                            aria-labelledby="headingOne" data-parent="#accordion">
+                                                            <div class="card-body p-2">
+                                                                <p>
+                                                                    Anim pariatur cliche reprehenderit, enim eiusmod
+                                                                    high
+                                                                    life accusamus terry richardson ad squid. 3 wolf
+                                                                    moon
+                                                                    officia aute, non cupidatat skateboarddolor brunch.
+                                                                    Food
+                                                                    truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                                    moon tempor, sunt aliqua put a bird on it squid
+                                                                    single-origin coffee nulla assumenda shoreditch et.
+                                                                    Nihil anim keffiyeh helvetica, craft beer labore wes
+                                                                    anderson cred nesciunt sapiente ea proident. Ad
+                                                                    vegan
+                                                                    excepteur butcher vice lomo. Leggings occaecat craft
+                                                                    beer farm-to-table, raw denim aesthetic synth
+                                                                    nesciunt
+                                                                    you probably haven't heard of them accusamus labore
+                                                                    sustainable VHS.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Recent Orders -->
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-end">
+                            <button class="btn btn-primary" onclick="addTable()"><i class="fe fe-plus"></i></button>
+                        </div>
+                    </div>
+                    <div id="tableContainer" class="row mt-3">
+                        <div class="col-md-12"></div>
+                    </div>
+                </div>
+
+                <script>
+                    let tableCounter = 0;
+
+                    function addTable() {
+                        tableCounter++;
+
+                        // Clone the original table
+                        const originalTable = document.getElementById("originalTable");
+                        const clonedTable = originalTable.cloneNode(true);
+
+                        // Generate unique IDs for elements in the cloned table
+                        clonedTable.id = "table" + tableCounter;
+
+                        const accordion = clonedTable.querySelector("#accordion");
+                        accordion.id = "accordion" + tableCounter;
+
+                        const collapseOne = clonedTable.querySelector("#collapseOne");
+                        const headingOne = clonedTable.querySelector("#headingOne");
+
+                        const diseaseNameButton = headingOne.querySelector("button");
+                        diseaseNameButton.setAttribute("data-toggle", "collapse");
+                        diseaseNameButton.setAttribute("data-target", "#collapseOne" + tableCounter);
+                        headingOne.id = "headingOne" + tableCounter;
+                        collapseOne.id = "collapseOne" + tableCounter;
+
+                        // Add the "minus" button
+                        const minusButton = document.createElement("button");
+                        minusButton.innerText = "Remove";
+                        minusButton.className = "btn btn-danger";
+                        minusButton.addEventListener("click", function () {
+                            removeTable(clonedTable);
+                        });
+
+                        const buttonContainer = document.createElement("div");
+                        buttonContainer.className = "mt-2";
+                        buttonContainer.appendChild(minusButton);
+
+                        clonedTable.appendChild(buttonContainer);
+
+                        // Add the cloned table to the tableContainer
+                        const tableContainer = document.getElementById("tableContainer");
+                        tableContainer.appendChild(clonedTable);
+
+                        // Show the cloned table
+                        clonedTable.classList.remove("d-none");
+                    }
+
+                    function removeTable(table) {
+                        table.remove();
+                    }
+                </script>
+
+
+                <div class="d-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table text-center table-bordered table-center mb-0" id="originalTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Disease Name</th>
+                                            <th>Month</th>
+                                            <th>Year</th>
+                                            <th>Duration</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div id="accordion">
+                                                    <div class="card card1">
+                                                        <div class="card-header card-header1" id="headingOne">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn btn-link" data-toggle="collapse"
+                                                                    data-target="#collapseOne" aria-expanded="true"
+                                                                    aria-controls="collapseOne">
+                                                                    pqr
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td> October </td>
+                                            <td>2023</td>
+                                            <td> 11 months </td>
+                                            <td>idontknow</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h4 class="card-title ms-3 mt-3">Remark</h4>
+                                </div>
+                                <div class="col-md-9 mt-3 p-1">
+                                    <div class="card">
+                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                            data-parent="#accordion">
+                                            <div class="card-body p-2">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                                skateboarddolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                                single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                                helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                                                beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                                                haven't heard of them accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Wrapper -->
+
+    </div>
+    <!-- /Main Wrapper -->
+
+</body>
+
+</html>
+{% endblock %}

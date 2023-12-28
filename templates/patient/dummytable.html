@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Tables</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" onclick="addTable()">Open Table</button>
+            </div>
+        </div>
+        <div id="tableContainer" class="row mt-3">
+            <div class="col-md-12"></div>
+        </div>
+    </div>
+
+    <script>
+        let tableCounter = 0;
+
+        function addTable() {
+            tableCounter++;
+
+            // Clone the original table
+            const originalTable = document.getElementById("originalTable");
+            const clonedTable = originalTable.cloneNode(true);
+
+            // Generate unique IDs for elements in the cloned table
+            clonedTable.id = "table" + tableCounter;
+
+            const accordion = clonedTable.querySelector("#accordion");
+            accordion.id = "accordion" + tableCounter;
+
+            const collapseOne = clonedTable.querySelector("#collapseOne");
+            collapseOne.id = "collapseOne" + tableCounter;
+            collapseOne.setAttribute("aria-labelledby", "headingOne" + tableCounter);
+
+            // Add the cloned table to the tableContainer
+            const tableContainer = document.getElementById("tableContainer");
+            tableContainer.appendChild(clonedTable);
+
+            // Show the cloned table
+            clonedTable.classList.remove("d-none");
+        }
+    </script>
+
+    <div class="d-none">
+        <div class="table-responsive">
+            <table class="table text-center table-center mb-0" id="originalTable">
+                <thead>
+                    <tr>
+                        <th>Disease Name</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id="accordion">
+                                <div class="card card1">
+                                    <div class="card-header card-header1" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                               pqr
+                                            </button>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td> October </td>
+                        <td>2023</td>
+                        <td> 11month </td>
+                        <td>idontknow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <h4 class="card-title ms-3 mt-3">Remark</h4>
+            </div>
+            <div class="col-md-9 mt-3 p-1">
+                <div class="card">
+                    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body p-2">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboarddolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

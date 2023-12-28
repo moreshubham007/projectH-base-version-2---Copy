@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <title>HMS</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/receptionbootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/receptionselect2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/receptionbootstrap-datetimepicker.min.css' %}">
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/receptionstyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/loader.css' %}">
+    <script src="{% static 'assets/js/loader.js' %}"></script>
+<style>
+        .header {
+            background-color: #3a3a3a;
+            left: 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1039;
+            height: 50px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-menu li a:hover {
+            color: #3a3a3a;
+        }
+    
+    .btn-primary {
+        border-color: transparent;
+        background-color: #3a3a3a;
+    }
+
+    .btn-primary:hover {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .btn-primary:active:not(:disabled):not(.disabled)
+    {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .page-item.active .page-link {
+        background-color: #3a3a3a;
+        border-color: #3a3a3a;
+    }
+</style>
+    
+</head>
+<!-- loader code start -->
+<div id="overlay">
+    <div id="progstat"></div>
+    <div id="progress"></div>
+</div>
+<div>
+<!-- <div class="flex-center flex-column mt-5 mb-5">
+  <h1 class="animated fadeIn mb-2">This is a simple page loader</h1>
+   <h5 class="animated fadeIn mb-1">Using no extra plugins, we use the power of javascript & basic css to create a seamless page loader.</h5>
+
+  <p class="animated fadeIn text-muted">Whitney S Rogers creation - GR FREEDOM DEV</p>
+   -->
+
+  <!-- <div id="container" class="mt-5 text-center">
+    <h4 class="mb-5">Let's load some heavy images to test page loader!</h4>
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col"><img src="http://placehold.it/3000x3000/cf5" class="img-fluid"></div>
+        <div class="col"><img src="http://placehold.it/3000x3000/cf1" class="img-fluid"></div>
+      </div>
+      <div class="row">
+        <div class="col"><img src="http://placehold.it/3000x3000/cf2" class="img-fluid"></div>
+        <div class="col"><img src="http://placehold.it/3000x3000/cf3" class="img-fluid"></div>
+      </div>
+    </div> -->
+  </div> 
+</div>
+</div>
+<!-- /Start your project here-->
+<!-- loader code end -->
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="{% url 'reception:index' %}" class="logo">
+					<!-- <img src="#" width="35" height="35" alt=""> <span>HMS</span> -->
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                   <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                        <span class="user-img">
+							<img class="rounded-circle" src="{% static 'assets/img/receptionuser.jpg' %}" width="24" alt="Admin">
+							<span class="status online"></span>
+						</span>
+                        {{user.firstname}}
+                    </a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{% url 'reception:logout' %}">Logout</a>
+					</div>
+                </li>
+            </ul>
+            <div class="dropdown mobile-user-menu float-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="{% url 'reception:logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        {% block dashboard %}
+                        <li class="active">
+                            <a href="{% url 'reception:index' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                        {% endblock %}
+
+                        {% block doctors %}
+						<li>
+                            <a href="{% url 'reception:show_doctors' %}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
+                        </li>
+                        {% endblock %}
+
+                        {% block patients %}
+                        <li>
+                            <a href="{% url 'reception:show_patients' %}"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                        </li>
+                        {% endblock %}
+
+                        {% block appointments %}
+                        <li>
+                            <a href="{% url 'reception:show_appointments' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        {% endblock %}
+                        {% block archiveappointments %}
+                        <li>
+                            <a href="{% url 'reception:show_archive_appointments' %}"><i class="fa fa-calendar"></i> <span>Archive Appointments</span></a>
+                        </li>
+                        {% endblock %}
+
+                        {% block doctor_schedule %}
+                        <li>
+                            <a href="{% url 'reception:show_doctor_schedules' %}"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
+                        </li>
+                        {% endblock %}		                       
+                    </ul>
+                </div>
+            </div>
+      </div>
+</div>

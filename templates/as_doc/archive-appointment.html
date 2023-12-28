@@ -1,0 +1,178 @@
+{% extends 'doctor_base_temp.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block customCSS %}
+<style>
+				.header {
+				background: none;
+				border-bottom: none;
+				z-index: 1001;
+				height: 60px;
+				position: static;
+				top: 0;
+				right: 0;
+				/* left: 18%; */
+			}
+
+			.sidebar {
+				background-color: #fff;
+				margin-top: 0;
+				-webkit-transition: all 0.2s ease-in-out 0s;
+				-ms-transition: all 0.2s ease-in-out 0s;
+				transition: all 0.2s ease-in-out 0s;
+				width: 240px;
+				z-index: 1001;
+				position: fixed;
+				top: 0px;
+				bottom: 0;
+				left: 0;
+			}
+
+			.sidebar .sidebar-menu > ul > li > a {
+				color: #000000;
+			}
+
+			.sidebar-menu ul li.active a {
+				background-color: #1c3264;
+				color: #fff;
+			}
+
+			.sidebar-menu > ul > li > a:hover {
+				background-color: #1c3264 !important;
+				color: #ffffff;
+			}
+
+			.user-header {
+				background-color: #fff !important;
+				display: flex;
+				padding: 10px 15px;
+				color: black;
+			}
+
+			.page-wrapper {
+				margin-left: 240px;
+				padding-top: 0px;
+				position: relative;
+				-webkit-transition: all 0.4s ease;
+				-ms-transition: all 0.4s ease;
+				transition: all 0.4s ease;
+			}
+
+			.btns{
+				background-color: #1c3264 !important;
+				border: 1px solid #1c3264;
+			}
+
+			.dash-widget-icon {
+				display: inline-flex;
+				font-size: 22px;
+				height: 50px;
+				line-height: 48px;
+				text-align: center;
+				width: 50px;
+				border: none;
+				border-radius: 0;
+				padding: 28px;
+			}
+
+			.sidebar-menu ul li a {
+                color: #000;
+                display: block;
+                font-size: 16px;
+                height: auto;
+                padding: 0 20px;
+            }
+			tr:hover{
+				background-color: #dbdbdb;
+				cursor: pointer;
+			}
+</style>
+{% endblock %}
+
+{% block doctor_name %}
+{{doctor.firstname}} {{doctor.lastname}}
+{% endblock %}
+{% block doctor_email %}
+{{doctor.email}}
+<br>
+{{doctor.user_id}}
+{% endblock %}
+
+{% block active %}
+<li> 
+	<a href="{% url 'as_doc:index' %}"><i class="fe fe-home"></i> <span>My Appointments</span></a>
+</li>
+<li class="active"> 
+	<a href="{% url 'as_doc:archive' %}"><i class="fe fe-folder"></i> <span>Archive Appointments</span></a>
+</li>
+<li> 
+	<a href="{% url 'as_doc:status' %}"><i class="fe fe-flag"></i> <span>My Status</span></a>
+</li>
+{% endblock %}
+
+
+
+{% block content %}
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+			
+                <div class="content container-fluid">
+					<div class="col-sm-4 col-3">
+						<h4 class="page-title">Archive Appointments</h4>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+						
+							<!-- Recent Orders -->
+							<div class="card card-table">
+								<!-- <div class="card-header">
+									<h4 class="card-title">My Cases</h4>
+								</div> -->
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-center mb-0">
+											<thead>
+												<tr>
+													<th>Appoinment ID</th>
+                                                    <th>Patient Name</th>
+													<th>Age</th>
+													<th>Appoinment Date</th>
+													<th>Appoinment Time</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for appointment in appointments %}
+													<tr class='clickable-row' data-href='{% url "as_doc:edit_archive_appointment" appointment.appointment_id  %}'>
+														<td>APT-{{appointment.appointment_id}}</td>
+														<td>{{appointment.patient.firstname}} {{appointment.patient.lastname}}</td>
+														<td>{{current_year |sub:appointment.patient.dob.year}}</td>
+														<td>{{appointment.date}}</td>
+														<td>{{appointment.time}}</td>
+														{% if appointment.status == 'D' %}
+														<td><span class="custom-badge status-orange">⚫Done</span></td>
+														{% endif %}
+													</tr>
+												
+												{% empty %}
+													<tr>
+														<td>
+															No Appointments found.
+														</td>
+													</tr>
+												{% endfor %}
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /Recent Orders -->
+							
+						</div>
+					</div>
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+{% endblock %}

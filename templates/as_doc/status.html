@@ -1,0 +1,167 @@
+{% extends 'doctor_base_temp.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block customCSS %}
+<style>
+				.header {
+				background: none;
+				border-bottom: none;
+				z-index: 1001;
+				height: 60px;
+				position: static;
+				top: 0;
+				right: 0;
+				/* left: 18%; */
+			}
+
+			.sidebar {
+				background-color: #fff;
+				margin-top: 0;
+				-webkit-transition: all 0.2s ease-in-out 0s;
+				-ms-transition: all 0.2s ease-in-out 0s;
+				transition: all 0.2s ease-in-out 0s;
+				width: 240px;
+				z-index: 1001;
+				position: fixed;
+				top: 0px;
+				bottom: 0;
+				left: 0;
+			}
+
+			.sidebar .sidebar-menu > ul > li > a {
+				color: #000000;
+			}
+
+			.sidebar-menu ul li.active a {
+				background-color: #1c3264;
+				color: #fff;
+			}
+
+			.sidebar-menu > ul > li > a:hover {
+				background-color: #1c3264 !important;
+				color: #ffffff;
+			}
+
+			.user-header {
+				background-color: #fff !important;
+				display: flex;
+				padding: 10px 15px;
+				color: black;
+			}
+
+			.page-wrapper {
+				margin-left: 240px;
+				padding-top: 0px;
+				position: relative;
+				-webkit-transition: all 0.4s ease;
+				-ms-transition: all 0.4s ease;
+				transition: all 0.4s ease;
+			}
+
+			.btns{
+				background-color: #1c3264 !important;
+				border: 1px solid #1c3264;
+			}
+
+			.dash-widget-icon {
+				display: inline-flex;
+				font-size: 22px;
+				height: 50px;
+				line-height: 48px;
+				text-align: center;
+				width: 50px;
+				border: none;
+				border-radius: 0;
+				padding: 28px;
+			}
+
+			.sidebar-menu ul li a {
+                color: #000;
+                display: block;
+                font-size: 16px;
+                height: auto;
+                padding: 0 20px;
+            }
+            input[name="status"] {
+                transform: scale(1.5);
+                }
+            /* button[name="save-status-btn"]{
+                margin-left: 30%;
+            } */
+</style>
+{% endblock %}
+
+{% block doctor_name %}
+{{doctor.firstname}} {{doctor.lastname}}
+{% endblock %}
+{% block doctor_email %}
+{{doctor.email}}
+<br>
+{{doctor.user_id}}
+{% endblock %}
+
+{% block active %}
+<li class=""> 
+	<a href="{% url 'as_doc:index' %}"><i class="fe fe-home"></i> <span>My Appointments</span></a>
+</li>
+<li> 
+	<a href="{% url 'as_doc:archive' %}"><i class="fe fe-folder"></i> <span>Archive Appointments</span></a>
+</li>
+<li class="active"> 
+	<a href="{% url 'as_doc:status' %}"><i class="fe fe-flag"></i> <span>My Status</span></a>
+</li>
+{% endblock %}
+
+{% block content %}
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+			
+                <div class="content container-fluid">
+					<div class="col-sm-4 col-3">
+						<h4 class="page-title">My Status</h4>
+					</div>
+                    <form action="{% url 'as_doc:status' %}" method="post">
+                        {% csrf_token %}
+					    <div class="d-flex justify-content-center">
+                            <div class="form-group">
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'A' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_available" value="A" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_available" value="A">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_available">
+									Available
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'W' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_away" value="W" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_away" value="W">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_away">
+									Away
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+                                    {% if doctor.status == 'O' %}
+									<input class="form-check-input" type="radio" name="status" id="doctor_occupied" value="O" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="radio" name="status" id="doctor_occupied" value="O">
+                                    {% endif %}
+									<label class="form-check-label" for="doctor_occupied">
+									Occupied
+									</label>
+								</div>
+                            </div>
+					    </div>
+                        <div class="m-t-30 text-center">
+                            <button name="save-status-btn" class="btn btn-primary submit-btn">Save Status</button>
+                        </div>
+                </form>
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+{% endblock %}

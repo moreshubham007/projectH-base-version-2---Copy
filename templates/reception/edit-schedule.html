@@ -1,0 +1,90 @@
+{% extends 'reception_base.html' %}
+{% load static %}
+
+{% block content %}
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-4 ">
+                        <h4 class="page-title">Edit Schedule</h4>
+                         
+                    </div>
+                    <div class="col-sm-8  text-right m-b-20">
+                        <a href="{% url 'reception:show_doctor_schedules' %}" class="btn btn-primary btn-rounded float-right">Back</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <form method="post" action="{% url 'reception:edit_doctor_schedule' schedule.id %}">
+                            {% csrf_token %}
+                            {% if error %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{error}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                          {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="form-group">
+                                        <label>Doctor Name</label>
+                                        <br>
+                                        <select class="selectpicker" name="doctor_name" data-live-search="true" required>
+                                            <option value="">Select Doctor</option>
+                                            {% for doctor in doctors %}
+                                            {% if doctor.user_id == schedule.doctor.user_id %}
+                                            <option value="{{doctor.user_id}}" data-tokens="{{doctor.firstname}} {{doctor.lastname}} {{doctor.dob}} {{doctor.primary_contact}}" selected>DR. {{doctor.firstname}} {{doctor.lastname}} </option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Available Days</label>
+                                        <select class="select" multiple name="days" required>
+                                            {% for days in schedule.working_days.all %}
+                                            <option value="{{days}}" selected>{{days}}</option>
+                                            {% endfor %}
+
+                                            {% for days in other_week_days %}
+                                            <option value="{{days}}">{{days}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control" id="datetimepicker3" name="start_time" value="{{from_date}}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control" id="datetimepicker4" name="end_time" value="{{to_date}}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea cols="30" rows="4" class="form-control" name="message" required>{{schedule.message}}</textarea>
+                            </div>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary submit-btn" name="add-schedule">Save Schedule</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+{% endblock %}

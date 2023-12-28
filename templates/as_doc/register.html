@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Customer Register</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="{% static '/assets/img/favicon.png' %}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static '/assets/css/custom.css' %}">
+
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+	<style>
+		.toggle-password {
+			font-size: 16px;
+			/* position: absolute; */
+			position: fixed;
+			top: 54%;
+			right: 23%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			color: #797979;
+			cursor: pointer;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+		}
+
+		.toggle-passwords {
+			font-size: 16px;
+			position: fixed;
+			top: 64%;
+			right: 23%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			color: #797979;
+			cursor: pointer;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper login-body">
+		<div class="login-wrapper">
+			<div class="container">
+				<div class="loginbox">
+					<div class="login-left">
+						<img class="img-fluid" src="../../static/assets/img/logo-white.png" alt="Logo">
+					</div>
+					<div class="login-right">
+						<div class="login-right-wrap">
+							<h1>Doctor Register</h1>
+							<p class="account-subtitle">Access to our dashboard</p>
+
+							<!-- Form -->
+							<form action="{% url 'as_doc:register' %}" name="myForm" id="registrationForm"
+								onsubmit="return validateForm()" method="post">
+								{% csrf_token %}
+								<!-- <form action="login.html" name="myForm" id="registrationForm" onsubmit="return validateForm()"> -->
+								<!-- name -->
+								<div class="form-group" id="iname">
+									<input class="form-control" type="text" id="name" name="fname" required
+										placeholder="Name">
+									<span class="spin"></span>
+								</div>
+								<div class="form-group" id="iname">
+									<input class="form-control" type="text" id="name" name="lname" required
+										placeholder="Name">
+									<span class="spin"></span>
+								</div>
+								<!-- email -->
+								<div class="form-group" id="iemail">
+									<input class="form-control" type="email" id="email" name="email" required
+										placeholder="Email">
+									<span class="spin"></span>
+								</div>
+								<!--contact  -->
+								<div class="form-group" id="iemail">
+									<input class="form-control" type="number" id="email" name="primarycontact" required
+										placeholder="Contact">
+									<span class="spin"></span>
+								</div>
+								<!-- aternate  contact-->
+								<div class="form-group" id="iemail">
+									<input class="form-control" type="number" id="email" name="alternatecontact"
+										placeholder="alternate contact">
+									<span class="spin"></span>
+								</div>
+								<!-- dob -->
+								<div class="form-group" id="iemail">
+									<input class="form-control" type="date" id="email" name="dob" required
+										placeholder="Date of Birth">
+									<span class="spin"></span>
+								</div>
+								<!-- gender -->
+								<div class="form-group" id="iemail">
+									<select class="form-select" aria-label="Default select example" name="gender">
+										<option value="M">Male</option>
+										<option value="F">Female</option>
+										<option value="O">Other</option>
+									</select>
+								</div>
+								<!-- pswd -->
+								<div class="form-group" id="ipass">
+									<div class="input-group" id="show_hide_password_">
+										<input class="form-control" type="password" name="password" placeholder="password">
+										<div class="input-group-addon">
+											<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+										</div>
+									</div>
+								</div>
+								<div class="form-group" id="cpass">
+									<div class="input-group" id="show_hide_password">
+										<input class="form-control" type="password" name="confirmation" placeholder="confirm password">
+										<div class="input-group-addon">
+										  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+										</div>
+									  </div>
+								</div>
+								<div class="form-group mb-0">
+									<button class="btn btn-primary w-100" type="submit">Register</button>
+								</div>
+							</form>
+							<!-- /Form -->
+
+							<div class="text-center dont-have">Already have an account? <a
+									href="{% url 'as_doc:login' %}">Login</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Main Wrapper -->
+
+	<!-- jQuery -->
+	<script src="../../static/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="../../static/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="../../static/assets/js/script.js"></script>
+
+	<!-- <script>
+			function validateForm() {
+				// Get form input values
+				var name = document.getElementById("name").value;
+				var email = document.getElementById("email").value;
+				var password = document.getElementById("password").value;
+	
+				// Regular expression to validate email format
+				var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	
+				// Check if name is empty
+				if (name.trim() === "") {
+					alert("Name field is required");
+					return false;
+				}
+	
+				// Check if email is empty and matches the email format
+				if (email.trim() === "") {
+					alert("Email field is required");
+					return false;
+				} else if (!email.match(emailRegex)) {
+					alert("Invalid email format");
+					return false;
+				}
+	
+				// Check if password is empty and meets the minimum length
+				if (password.trim() === "") {
+					alert("Password field is required");
+					return false;
+				} else if (password.length < 6) {
+					alert("Password must be at least 6 characters long");
+					return false;
+				}
+	
+				// If all checks pass, the form is valid and can be submitted
+				return true;
+			}
+		</script> -->
+
+
+	<script>
+		$(document).ready(function () {
+			$("#show_hide_password a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password input').attr("type") == "text") {
+					$('#show_hide_password input').attr('type', 'password');
+					$('#show_hide_password i').addClass("fa-eye-slash");
+					$('#show_hide_password i').removeClass("fa-eye");
+				} else if ($('#show_hide_password input').attr("type") == "password") {
+					$('#show_hide_password input').attr('type', 'text');
+					$('#show_hide_password i').removeClass("fa-eye-slash");
+					$('#show_hide_password i').addClass("fa-eye");
+				}
+			});
+		});
+		$(document).ready(function () {
+			$("#show_hide_password_ a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password_ input').attr("type") == "text") {
+					$('#show_hide_password_ input').attr('type', 'password');
+					$('#show_hide_password_ i').addClass("fa-eye-slash");
+					$('#show_hide_password_ i').removeClass("fa-eye");
+				} else if ($('#show_hide_password_ input').attr("type") == "password") {
+					$('#show_hide_password_ input').attr('type', 'text');
+					$('#show_hide_password_ i').removeClass("fa-eye-slash");
+					$('#show_hide_password_ i').addClass("fa-eye");
+				}
+			});
+		});
+		// 	if ($('.toggle-password').length > 0) {
+		// 	$(document).on('click', '.toggle-password', function () {
+		// 		$(this).toggleClass("feather-eye-off");
+		// 		var input = $(".pass-input");
+		// 		if (input.attr("type") == "password") {
+		// 			input.attr("type", "text");
+		// 		} else {
+		// 			input.attr("type", "password");
+		// 		}
+		// 	});
+		// }
+
+		// if ($('.toggle-passwords').length > 0) {
+		// 	$(document).on('click', '.toggle-passwords', function () {
+		// 		$(this).toggleClass("feather-eye-off");
+		// 		var input = $(".pass-input-sub");
+		// 		if (input.attr("type") == "password") {
+		// 			input.attr("type", "text");
+		// 		} else {
+		// 			input.attr("type", "password");
+		// 		}
+		// 	});
+		// }
+	</script>
+
+	<!-- form validation by supriya -->
+	<script>
+
+		function clearErrors() {
+			errors = document.getElementsByClassName("spin");
+			for (let item of errors) {
+				item.innerHTML = "";
+			}
+		}
+
+		function seterror(id, error) {
+			element = document.getElementById(id);
+			element.getElementsByClassName('spin')[0].innerHTML = error;
+		}
+
+		function validateForm() {
+			var returnval = true;
+			clearErrors();
+
+			var name = document.forms['myForm']["name"].value;
+			if (name.length < 5) {
+				seterror("iname", "length of name is too short");
+				returnval = false;
+			}
+
+			if (name.length == 0) {
+				seterror("iname", "name cannot be empty");
+				returnval = false;
+			}
+
+			var password = document.forms['myForm']["password"].value;
+			var capitalLetter = /[A-Z]/;
+			var lowercaseLetter = /[a-z]/;
+			var numbers = /[0-9]/;
+			var specialSymbol = /[!@#$%^&*()_+{}:;<>,.?~\/-=|]/;
+
+			if (
+				capitalLetter.test(password) &&
+				lowercaseLetter.test(password) &&
+				(password.match(numbers) && password.match(numbers).length >= 3) &&
+				specialSymbol.test(password) &&
+				password.length >= 8
+			) {
+				// Password meets the criteria
+				// clearError("ipass"); // This function should clear the error message]]
+			} else {
+				var errorMessage = "Password should have at least one capital letter, one lowercase letter, at least three numbers, one special symbol, and a minimum length of 8 characters.";
+				var errorStyle = {
+					padding: "13px", // Adjust the padding value as needed
+					color: "red",   // Adjust other styles as needed
+					// Add more styles here if desired
+				};
+				seterror("ipass", errorMessage, errorStyle);
+				returnval = false;
+			}
+
+			function clearError(fieldId) {
+				// This function clears the error message by setting its innerHTML to an empty string
+				document.getElementById(fieldId).innerHTML = "";
+			}
+
+
+			var cpassword = document.forms['myForm']["cpassword"].value;
+			if (cpassword != password) {
+				seterror("cpass", "password and confirm password should match!");
+				returnval = false;
+
+				var cpass = document.getElementById("cpass");
+				if (cpass) {
+					cpass.style.marginTop = ""; // Adjust the margin value as needed
+				}
+			}
+
+			return returnval;
+		}
+	</script>
+</body>
+
+</html>

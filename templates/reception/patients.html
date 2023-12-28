@@ -1,0 +1,107 @@
+{% extends 'reception_base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block content %}
+<style>
+    .btn-primary {
+        border-color: transparent;
+        background-color: #3a3a3a;
+    }
+
+    .btn-primary:hover {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .btn-primary:active:not(:disabled):not(.disabled)
+    {
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+        color:#000;
+    }
+
+    .page-item.active .page-link {
+        background-color: #3a3a3a;
+        border-color: #3a3a3a;
+    }
+</style>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-3">
+                <h4 class="page-title">Patients</h4>
+            </div>
+            <div class="col-sm-8 col-9 text-right m-b-20">
+                <a href="{% url 'reception:add_patient' %}" class="btn btn-primary btn-rounded float-right"><i
+                        class="fa fa-plus"></i> Add Patient</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-6">
+                <form class="form-inline" method="post" action="{% url 'reception:show_patients' %}">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" placeholder="Patient Name / ID /Ph.no" name="searched_patient" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+            </div>
+        </div>
+        <div class="table-responsive overflow-hidden">
+            <table class="datatable table table-stripped ">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- for loop start -->
+                    {% for patient in patients %}
+                    <tr>
+                        <td>{{patient.firstname}} {{patient.lastname}}</td>
+                        <td>{{ current_year |sub:patient.dob.year }}</td>
+                        <td>{{patient.email}}</td>
+                        <td>{{patient.primary_contact}}</td>
+                        {% if patient.patient_type == 'N' %}
+                        <td><span class="custom-badge status-green">New Patient</span></td>
+                        {% else %}
+                        <td><span class="custom-badge status-blue">Existing Patient</span></td>
+                        {% endif %}
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item"
+                                        href="{% url 'reception:edit_patient' patient.user_id %}"><i
+                                            class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <a class="dropdown-item"
+                                        href="{% url 'reception:delete_patient' patient.user_id %}" onclick="return confirmDelete()"><i  class="fa fa-trash-o m-r-5" ></i> Delete</a>
+                                    <a class="dropdown-item"
+                                        href="{% url 'reception:update_patient_password' patient.user_id %}"><i
+                                            class="fa fa-eye m-r-5"></i> Change Password</a>
+                                </div>
+                        </td>
+                        {% endfor %}
+                        <!-- for loop end -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script language="JavaScript" type="text/javascript">
+    function confirmDelete() {
+        return confirm('Are you sure want to delete this Patient?');
+    }
+</script>
+{% endblock %}
